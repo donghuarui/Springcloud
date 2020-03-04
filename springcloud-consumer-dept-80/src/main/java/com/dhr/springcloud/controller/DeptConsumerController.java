@@ -26,7 +26,6 @@ public class DeptConsumerController {
 
     @RequestMapping("/consumer/dept/add")
     public Boolean add(Dept dept) {
-        System.err.println(dept);
         return restTemplate.postForObject(REST_URL_PREFIX + "/dept/add", dept, Boolean.class);
     }
 

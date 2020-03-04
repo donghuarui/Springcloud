@@ -1,9 +1,17 @@
-# Project exclude paths
-/springcloud-api/target/
-/springcloud-consumer-dept-80/target/
-/springcloud-eureka-7001/target/
-/springcloud-eureka-7002/target/
-/springcloud-eureka-7003/target/
-/springcloud-provider-dept-8001/target/
-/springcloud-provider-dept-8002/target/
-/springcloud-provider-dept-8003/target/
+target
+classes
+*.jar
+*.class
+.lein-*
+.nrepl-port
+.hgignore
+.cache
+.hg
+lib
+.idea
+.env
+*.log
+*.iml
+node_modules
+npm-debug.log
+run.pid
