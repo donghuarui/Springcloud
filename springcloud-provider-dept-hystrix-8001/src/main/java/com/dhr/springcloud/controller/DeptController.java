@@ -1,13 +1,14 @@
 package com.dhr.springcloud.controller;
 
-import com.dhr.springcloud.service.DeptService;
 import com.dhr.springcloud.entity.Dept;
+import com.dhr.springcloud.service.DeptService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,10 +51,27 @@ public class DeptController {
     }
 
     @GetMapping("/findAll")
+    @HystrixCommand(fallbackMethod = "hystrix_findAll")
     public List<Dept> findAll() {
+        if ("2" == null) {
+            throw new RuntimeException("id=>" + "不存在该用户,或信息无法找到");
+        }
         return deptService.queryAll();
     }
 
+
+    /**
+     * 备选方法
+     *
+     * @param
+     * @return
+     */
+    public List<Dept> hystrix_findAll() {
+        List<Dept> depts = new ArrayList<>();
+        Dept dept = new Dept().setDeptno((long) 1).setDname("该用户不存在").setDb_source("no data source");
+        depts.add(dept);
+        return depts;
+    }
 
     /**
      * 注册进来的微服务，获取一些信息
